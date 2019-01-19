@@ -1,0 +1,20 @@
+#!/usr/bin/perl --
+
+use Config::Simple;
+use strict;
+my  $conf;
+our $Owpin;
+
+
+sleep(30);
+system('modprobe w1-gpio pullup=1');
+system('modprobe w1-therm');
+
+
+$conf = new Config::Simple("REPLACELBPCONFIGDIR/1wireconfig.cfg");
+$Owpin = $conf->param('1wireconfig.OWPIN');
+
+
+system('sed -i "/^dtoverlay=w1-gpio,g/d" /boot/config.txt'); #den eintag löschen
+system('echo "dtoverlay=w1-gpio,gpiopin='.$Owpin.',pullup=on" >> /boot/config.txt'); #die Einträge einfügen
+exit;

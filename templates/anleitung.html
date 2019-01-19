@@ -1,0 +1,70 @@
+<p><TMPL_VAR BASIC.WELCOME></p>
+<p><TMPL_VAR BASIC.SAMPLEPLUGIN_HINT></p>
+<p><TMPL_VAR BASIC.SAMPLEPLUGIN_BESTPRACTISE></p>
+
+<!-- The following variable shows a selectbox that was generated in the cgi script -->
+<TMPL_VAR ACTIVATED>
+<p><TMPL_VAR FOOTER.GREETING></p>
+
+<div data-role="navbar" class="ui-navbar" role="navigation">
+	<ul class="ui-grid-a"> 
+		<li class="ui-block-a">
+			<div style="position:relative">
+			<div class="notifyBlueNavBar" id="notifyBlueNavBar1" style="display: none">0</div>
+			<div class="notifyRedNavBar" id="notifyRedNavBar1" style="display: none">0</div>
+			<a href="index.cgi" class="ui-link ui-btn">Einstellungen</a></div>
+		</li> 
+		<li class="ui-block-b"><div style="position:relative">
+			<div class="notifyBlueNavBar" id="notifyBlueNavBar2" style="display: none">0</div>
+			<div class="notifyRedNavBar" id="notifyRedNavBar2" style="display: none">0</div>
+			<a href="anleitung.cgi" class="ui-link ui-btn ui-btn-active">Anleitung</a>
+		</div>
+		</li>
+	</ul>
+</div>
+<div class="\&quot;ui-content\&quot;" role="\&quot;main\&quot;">
+<div class="\&quot;ui-body">
+<div>
+<p style="margin-top: 60px;"><img style="display: block; margin-left: auto; margin-right: auto;" src="../../../system/images/icons/1wire-onboard/icon_512.png" alt="test" width="10%" height="10%" /></p>
+<h1 class="form-group" style="text-align: center;">ONE WIRE ONBOARD</h1>
+<div class="form-group">
+<table width="100%">
+<tbody>
+<tr>
+<td style="width: 50%;">
+<h3>Funktion</h3>
+</td>
+<td style="width: 50%;">
+<h3 style="text-align: center;">Pinout des Raspberry 3</h3>
+</td>
+</tr>
+<tr>
+<td style="width: 50%;">
+Die Angeschlossenen Sensoren werden mit den Onboardmitteln des Raspberry's angefragt<br /> Dieses Plugin ist derzeit ausgelegt um Temperatursensoren der 28'er Baureihe abzufragen<br /> Die Abfrage-ergebnisse werden mit der Sersor-ID per UDP an den Miniserver gesendet.<br /> <br /> <br />
+<h4>Miniserver UDP-Port:</h4>
+<br /> <br /> Hier bitte den Empfangsport des Miniservers eintragen<br /> <br /> <br />
+<h4>ONEWIRE-PIN</h4>
+<br /> <br /> Pin des Raspberry's an dem der Onewirebus angeschlossen ist<br />Getestet: PIN 4 ,5 ,6 ,17 ,22 ,27<br /> <br /> <font color=#FE2E2E>WICHTIG: es werden 2 Neustart's ben&ouml;tigt</font> damit die Pin&auml;nderung aktiviert wird!!!<br /> Es wird die GPIO Pinnummer verwendet!!<br /> <br /> Aktivieren und Speichern nicht vergessen</td>
+<td style="width: 50%;">
+<p style="margin-top: 60px;"><img style="display: block; margin-left: auto; margin-right: auto;" src="../../../plugins/1wire-onboard/pinout.png" alt="test" width="30%" /></p>
+</td>
+</tr>
+</tbody>
+</table>
+<h2>Viel Spa&szlig mit dem Plugin</h2>
+</div>
+</div>
+</div>
+</div>
+
+
+<script>
+		var $messages = $('#form-error-message');
+		$.validate({
+			modules : 'security',
+			errorMessagePosition : $messages,
+		});
+</script>
+</div>
+</div>
+</div>

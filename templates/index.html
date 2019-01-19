@@ -1,0 +1,143 @@
+<p><TMPL_VAR BASIC.WELCOME></p>
+<p><TMPL_VAR BASIC.SAMPLEPLUGIN_HINT></p>
+<p><TMPL_VAR BASIC.SAMPLEPLUGIN_BESTPRACTISE></p>
+
+<!-- The following variable shows a selectbox that was generated in the cgi script -->
+<TMPL_VAR ACTIVATED>
+<p><TMPL_VAR FOOTER.GREETING></p>
+
+<div data-role="navbar" class="ui-navbar" role="navigation">
+	<ul class="ui-grid-a"> 
+		<li class="ui-block-a">
+			<div style="position:relative">
+			<div class="notifyBlueNavBar" id="notifyBlueNavBar1" style="display: none">0</div>
+			<div class="notifyRedNavBar" id="notifyRedNavBar1" style="display: none">0</div>
+			<a href="index.cgi" class="ui-link ui-btn-active">Einstellungen</a></div>
+		</li> 
+		<li class="ui-block-b">
+			<div style="position:relative">
+			<div class="notifyBlueNavBar" id="notifyBlueNavBar2" style="display: none">0</div>
+			<div class="notifyRedNavBar" id="notifyRedNavBar2" style="display: none">0</div>
+			<a href="anleitung.cgi" class="ui-link ui-btn ui-btn">Anleitung</a>
+		</div>
+		</li>
+	</ul>
+</div>
+
+
+<div role=\"main\" class=\"ui-content\">
+<div class=\"ui-body ui-body-a ui-corner-all loxberry-logo\">
+<div style=\"margin: 5%;\">
+
+<h2>Settings</h2>
+									<form method="post" data-ajax="false" name="main_form" id="main_form" action="./index.cgi">
+										<input type="hidden" name="savedata" id="savedata" value="1">
+											<div class="form-group">
+												<table class="formtable" border="0" width="100%">
+													<tr>
+														<td width="25%">
+															<label id="labelfbpass">Miniserver TEST:</label>
+														</td>
+														<td width="50%">
+															<select id="miniserver" name="miniserver" data-mini="true" onchange="selMS(this);">
+																<!--$MSselectlist-->
+															</select>
+														</td>
+														<td width="25%">
+															&nbsp;
+														</td>
+													</tr>
+													<tr>
+														<td width="25%">
+															<label id="labelmsudpport">MiniServer UDP-Port:</label>
+														</td>
+														<td width="50%">
+															<input id="msudpport" name="msudpport" type="text" class="textfield"
+																value="<!--$msudpport-->" data-validation-error-msg="* Please enter a MiniServer UDP-Port">
+														</td>
+														<td width="25%">
+															&nbsp;
+														</td>
+													</tr>
+													<tr>
+														<td width="25%">
+															<label id="crontabzeit">Abfragezeit(1-59min)</label>
+														</td>
+														<td width="50%">
+															<input id="cronzeit" name="cronzeit" type="text" class="textfield"
+																value="<!--$cronzeit-->" data-validation-error-msg="* Please enter a Time">
+														</td>
+														<td width="25%">
+															&nbsp;
+														</td>
+													</tr>
+													<tr>
+														<td width="25%">
+															<label id="onewpin">ONEWIRE-GPIO-PIN</label>
+														</td>
+														<td width="50%">
+															<input id="Owpin" name="Owpin" type="text" class="textfield"
+																value="<!--$Owpin-->" data-validation-error-msg="* Please enter a Time">
+														</td>
+														<td width="25%">
+															&nbsp;
+														</td>
+													</tr>
+													<tr>
+														<td width="25%">
+															<label id="labelmsenabled">Plugin Aktivieren:</label>
+														</td>
+														<td width="50%">
+														<fieldset>
+																<select id="enabled" name="enabled" data-role="flipswitch">
+																	<!--$Enabledlist-->
+																</select>
+															</fieldset>
+														</td>
+														<td width="25%">
+															&nbsp;
+														</td>
+													</tr>
+													<tr>
+													&nbsp;
+													</tr>
+													<tr>
+														<td width="25%">
+															<label id="labelloglv">Loglevel</label>
+														</td>
+														<td width="50%">
+														<fieldset>
+																<select id="loglv" name="loglv" data-mini="true" onchange="selMS(this);">
+																	<!--$Loglevellist-->
+																</select>
+															</fieldset>
+														</td>
+														<td width="25%">
+															&nbsp;
+														</td>
+													</tr>
+													<tr>
+														<td width="25%">&nbsp</td>
+														<td width="50%">
+															<input id="do" name="do" type="submit" value="Save">
+														</td>
+														<td width="25%">
+															&nbsp;
+														</td>
+													</tr>		
+											</table>
+										</div>
+									</form>
+<!--$restartMsg-->
+
+
+<script>
+		var $messages = $('#form-error-message');
+		$.validate({
+			modules : 'security',
+			errorMessagePosition : $messages,
+		});
+</script>
+</div>
+</div>
+</div>
