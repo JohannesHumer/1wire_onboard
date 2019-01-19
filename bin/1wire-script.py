@@ -91,7 +91,7 @@ try:
 					temp_f = temp_c * 9.0 / 5.0 + 32.0
 					return temp_c#, temp_f
 			temp = str(read_temp())
-			ID = device_folder[20:] + "==" + temp
+			ID = device_folder[20:] + "=" + temp
 			sock.sendto(ID, (miniserverIP,virtualUDPPort))
 			time.sleep(1)
 		else:	# alle anderen ordner überspringen  und weitermachen
