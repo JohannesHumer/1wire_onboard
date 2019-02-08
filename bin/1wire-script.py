@@ -8,6 +8,7 @@ import ConfigParser
 import socket
 import logging
 import sys
+import paho.mqtt.client as mqtt
 sock = socket.socket( socket.AF_INET, socket.SOCK_DGRAM )
 
 def main():
@@ -40,6 +41,12 @@ loxberryconfig.read(lbsconfig + "/general.cfg")
 miniserverIP = loxberryconfig.get(miniservername, 'IPADDRESS')
 
 # ---------------------------------------------
+# MQTT oder UDP Versand
+# ---------------------------------------------
+udpmqtt = int(pluginconfig.get('1wireconfig', 'UDPMQTT'))
+
+
+# ---------------------------------------------
 # Loglevelerkennung
 # ---------------------------------------------
 loglv = "WARNING" #standard loglevel
@@ -51,10 +58,12 @@ if loglvint == 20:
 if loglvint == 30:
 	loglv = "ERROR"
 # ---------------------------------------------
-# Logging TEST
-# ---------------------------------------------
+# Logging
+#----------------------------------------------
 zeit = time.strftime("%d.%m.%Y %H:%M:%S")
 logging.basicConfig(filename= lbplog + '/1wire-onboard/1wire-onboard.log', filemode='a', level=loglv) #logging starten und die einträge anfügen
+
+
 
 # ---------------------------------------------
 # Exit wenn PlugIn nicht eingeschalten ist
@@ -64,6 +73,33 @@ if enabled != "1":
 	sys.exit(-1)
 
 anzahl = 0
+resultcode = 0
+# ---------------------------------------------
+# MQTT einstellungen
+# ---------------------------------------------
+mqttbroker = pluginconfig.get('1wireconfig', 'MQTTBROKER')
+mqtttopik = pluginconfig.get('1wireconfig', 'MQTTTOPIK')
+mqttuser = pluginconfig.get('1wireconfig', 'MQTTUSER')
+mqttpassw = pluginconfig.get('1wireconfig', 'MQTTPASSW')
+
+if udpmqtt == 0:
+	def on_connect(client, userdata, flags, rc):
+		global resultcode
+		print("Connected with result code " + str(rc))
+		if rc == 5:
+			logging.warning(zeit + " Fehler bei der Authentifizierung des MQTT BROKER ( Password/USER ) ")	
+			resultcode = 1
+		if rc == 1 or rc == 2 or rc == 3 or rc == 4 or rc > 5:
+			logging.warning(zeit + " Fehler bein MQTT CONNECT    RESULT-Code:" + str(rc))
+			resultcode = 1
+	client = mqtt.Client()
+	client.on_connect = on_connect
+	client.username_pw_set(mqttuser, mqttpassw)
+	client.connect("localhost", 1883, 60)
+
+	client.loop_start()
+
+
 # ---------------------------------------------
 # Neue Abfrage starten
 # ---------------------------------------------
@@ -92,7 +128,13 @@ try:
 					return temp_c#, temp_f
 			temp = str(read_temp())
 			ID = device_folder[20:] + "=" + temp
-			sock.sendto(ID, (miniserverIP,virtualUDPPort))
+			if udpmqtt == 0:
+				client.publish(mqtttopik, ID)
+				if resultcode == 1:
+					logging.error(zeit + " Script bei der MQTT Übermittlung abgebrochen")	
+					sys.exit(-1)
+			else:
+				sock.sendto(ID, (miniserverIP,virtualUDPPort))
 			time.sleep(1)
 		else:	# alle anderen ordner überspringen  und weitermachen
 			continue

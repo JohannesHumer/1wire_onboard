@@ -29,107 +29,197 @@
 <div class=\"ui-body ui-body-a ui-corner-all loxberry-logo\">
 <div style=\"margin: 5%;\">
 
-<h2>Settings</h2>
-									<form method="post" data-ajax="false" name="main_form" id="main_form" action="./index.cgi">
-										<input type="hidden" name="savedata" id="savedata" value="1">
-											<div class="form-group">
-												<table class="formtable" border="0" width="100%">
-													<tr>
-														<td width="25%">
-															<label id="labelfbpass">Miniserver:</label>
-														</td>
-														<td width="50%">
-															<select id="miniserver" name="miniserver" data-mini="true" onchange="selMS(this);">
-																<!--$MSselectlist-->
-															</select>
-														</td>
-														<td width="25%">
-															&nbsp;
-														</td>
-													</tr>
-													<tr>
-														<td width="25%">
-															<label id="labelmsudpport">MiniServer UDP-Port:</label>
-														</td>
-														<td width="50%">
-															<input id="msudpport" name="msudpport" type="text" class="textfield"
-																value="<!--$msudpport-->" data-validation-error-msg="* Please enter a MiniServer UDP-Port">
-														</td>
-														<td width="25%">
-															&nbsp;
-														</td>
-													</tr>
-													<tr>
-														<td width="25%">
-															<label id="crontabzeit">Abfragezeit(1-59min)</label>
-														</td>
-														<td width="50%">
-															<input id="cronzeit" name="cronzeit" type="text" class="textfield"
-																value="<!--$cronzeit-->" data-validation-error-msg="* Please enter a Time">
-														</td>
-														<td width="25%">
-															&nbsp;
-														</td>
-													</tr>
-													<tr>
-														<td width="25%">
-															<label id="onewpin">ONEWIRE-GPIO-PIN</label>
-														</td>
-														<td width="50%">
-															<input id="Owpin" name="Owpin" type="text" class="textfield"
-																value="<!--$Owpin-->" data-validation-error-msg="* Please enter a Time">
-														</td>
-														<td width="25%">
-															&nbsp;
-														</td>
-													</tr>
-													<tr>
-														<td width="25%">
-															<label id="labelmsenabled">Plugin Aktivieren:</label>
-														</td>
-														<td width="50%">
-														<fieldset>
-																<select id="enabled" name="enabled" data-role="flipswitch">
-																	<!--$Enabledlist-->
-																</select>
-															</fieldset>
-														</td>
-														<td width="25%">
-															&nbsp;
-														</td>
-													</tr>
-													<tr>
-													&nbsp;
-													</tr>
-													<tr>
-														<td width="25%">
-															<label id="labelloglv">Loglevel</label>
-														</td>
-														<td width="50%">
-														<fieldset>
-																<select id="loglv" name="loglv" data-mini="true" onchange="selMS(this);">
-																	<!--$Loglevellist-->
-																</select>
-															</fieldset>
-														</td>
-														<td width="25%">
-															&nbsp;
-														</td>
-													</tr>
-													<tr>
-														<td width="25%">&nbsp</td>
-														<td width="50%">
-															<input id="do" name="do" type="submit" value="Save">
-														</td>
-														<td width="25%">
-															&nbsp;
-														</td>
-													</tr>		
-											</table>
-										</div>
-									</form>
-<!--$restartMsg-->
+<form method="post" data-ajax="false" name="main_form0" id="main_form0" action="./index.cgi">
+	<table class="formtable" border="0" width="100%">
+		<tr>
+			<td width="50%">		
+				<fieldset>
+					<select id="udpmqtt" name="udpmqtt" data-mini="true">
+					<!--$udpmqttlist-->
+					</select>
+				</fieldset>
+			</td>
+			<td width="50%">
+				<input id="saveauswahl" name="saveauswahl" type="submit" value="Auswahl Speichern">
+			</td>
+		</tr>
+	</table>
+</form>
 
+<h2>Settings</h2>
+
+	
+<form method="post" data-ajax="false" name="main_form" id="main_form" action="./index.cgi">
+	<input type="hidden" name="savedata" id="savedata" value="1">
+	<div id="test" class="form-group">
+		<div id="UDP"  style="display:none">
+			<table class="formtable" border="0" width="100%">
+					<tr>
+						<td width="25%">
+							<label id="labelfbpass">Miniserver:</label>
+						</td>
+						<td width="50%">
+							<select id="miniserver" name="miniserver" data-mini="true" onchange="selMS(this);">
+								<!--$MSselectlist-->
+							</select>
+						</td>
+						<td width="25%">
+							&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td width="25%">
+							<label id="labelmsudpport">MiniServer UDP-Port:</label>
+						</td>
+						<td width="50%">
+							<input id="msudpport" name="msudpport" type="text" class="textfield"
+								value="<!--$msudpport-->" data-validation-error-msg="* Please enter a MiniServer UDP-Port">
+						</td>
+						<td width="25%">
+							&nbsp;
+						</td>
+					</tr>
+			</table>
+		</div>
+		<div id="MQTT"  style="display:none">
+			<table class="formtable" border="0" width="100%">
+				<tr>
+						<td width="25%">
+							<label id="mqtt-broker">MQTT BROKER</label>
+						</td>
+						<td width="50%">
+							<input id="mqttbroker" name="mqttbroker" type="text" class="textfield"
+								value="<!--$mqttbroker-->" data-validation-error-msg="* Please enter a Time">
+						</td>
+						<td width="25%">
+							&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td width="25%">
+							<label id="mqtt-topik">MQTT Topik</label>
+						</td>
+						<td width="50%">
+							<input id="mqtttopik" name="mqtttopik" type="text" class="textfield"
+								value="<!--$mqtttopik-->" data-validation-error-msg="* Please enter a Time">
+						</td>
+						<td width="25%">
+							&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td width="25%">
+							<label id="mqtt-user">MQTT USER</label>
+						</td>
+						<td width="50%">
+							<input id="mqttuser" name="mqttuser" type="text" class="textfield"
+								value="<!--$mqttuser-->" data-validation-error-msg="* Please enter a Time">
+						</td>
+						<td width="25%">
+							&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td width="25%">
+							<label id="mqtt-passw">MQTT PASSWORT (wird nach der Seitenaktualisierung nichtmehr angezeigt)</label>
+						</td>
+						<td width="50%">
+							<input id="mqttpassw" name="mqttpassw" type="text" class="textfield"
+								value="<!--$mqttpassw-->" data-validation-error-msg="* Please enter a Time">
+						</td>
+						<td width="25%">
+							&nbsp;
+						</td>
+					</tr>
+			</table>
+		</div>
+		<hr>
+		<div id="generell">
+			<table class="formtable" border="0" width="100%">
+					<tr>
+						<td width="25%">
+							<label id="crontabzeit">Abfragezeit(1-59min)</label>
+						</td>
+						<td width="50%">
+							<input id="cronzeit" name="cronzeit" type="text" class="textfield"
+								value="<!--$cronzeit-->" data-validation-error-msg="* Please enter a Time">
+						</td>
+						<td width="25%">
+							&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td width="25%">
+							<label id="onewpin">ONEWIRE-GPIO-PIN</label>
+						</td>
+						<td width="50%">
+							<input id="Owpin" name="Owpin" type="text" class="textfield"
+								value="<!--$Owpin-->" data-validation-error-msg="* Please enter a Time">
+						</td>
+						<td width="25%">
+							&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td width="25%">
+							<label id="labelmsenabled">Plugin Aktivieren:</label>
+						</td>
+						<td width="50%">
+						<fieldset>
+								<select id="enabled" name="enabled" data-role="flipswitch">
+									<!--$Enabledlist-->
+								</select>
+							</fieldset>
+						</td>
+						<td width="25%">
+							&nbsp;
+						</td>
+					</tr>
+					<tr>
+					&nbsp;
+					</tr>
+					<tr>
+						<td width="25%">
+							<label id="labelloglv">Loglevel</label>
+						</td>
+						<td width="50%">
+						<fieldset>
+								<select id="loglv" name="loglv" data-mini="true" onchange="selMS(this);">
+									<!--$Loglevellist-->
+								</select>
+							</fieldset>
+						</td>
+						<td width="25%">
+							&nbsp;
+						</td>
+					</tr>
+					<tr>
+						<td width="25%">&nbsp</td>
+						<td width="50%">
+							<input id="do" name="do" type="submit" value="Save">
+						</td>
+						<td width="25%">
+							&nbsp;
+						</td>
+					</tr>		
+			</table>
+		</div>
+	</div>	
+</form>
+	
+
+<!--$restartMsg-->
+<script>
+        a = document.getElementById("udpmqtt");        
+        if(a.value == "1")      
+            document.getElementById("UDP").setAttribute("style","display:inline");
+		else
+            document.getElementById("UDP").setAttribute("style","display:none");
+		if(a.value == "1")      
+            document.getElementById("MQTT").setAttribute("style","display:none");
+		else
+            document.getElementById("MQTT").setAttribute("style","display:inline");
+</script>
 
 <script>
 		var $messages = $('#form-error-message');

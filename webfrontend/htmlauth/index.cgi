@@ -46,6 +46,14 @@ our $cronzeit;
 our $Owpin;
 our $loglv;
 our $Loglevellist;
+our $saveauswahl;
+our $udpmqtt;
+our $udpmqttlist;
+our $mqttbroker;
+our $mqtttopik;
+our $mqttuser;
+our $mqttpassw;
+
 
 # ---------------------------------------
 # Basic Settings
@@ -92,6 +100,21 @@ else { $Owpin = $Owpin;  } } else { $Owpin = quotemeta($query{'Owpin'});   }
 if ( !$query{'loglv'} )   { if ( param('loglv')  ) { $loglv = quotemeta(param('loglv'));         } 
 else { $loglv = $loglv;  } } else { $loglv = quotemeta($query{'loglv'});   }
 
+if ( !$query{'udpmqtt'} )   { if ( param('udpmqtt')  ) { $udpmqtt = quotemeta(param('udpmqtt'));         } 
+else { $udpmqtt = $udpmqtt;  } } else { $udpmqtt = quotemeta($query{'udpmqtt'});   }
+
+if ( !$query{'mqttbroker'} )   { if ( param('mqttbroker')  ) { $mqttbroker = quotemeta(param('mqttbroker'));         } 
+else { $mqttbroker = $mqttbroker;  } } else { $mqttbroker = quotemeta($query{'mqttbroker'});   }
+
+if ( !$query{'mqtttopik'} )   { if ( param('mqtttopik')  ) { $mqtttopik = quotemeta(param('mqtttopik'));         } 
+else { $mqtttopik = $mqtttopik;  } } else { $mqtttopik = quotemeta($query{'mqtttopik'});   }
+
+if ( !$query{'mqttuser'} )   { if ( param('mqttuser')  ) { $mqttuser = quotemeta(param('mqttuser'));         } 
+else { $mqttuser = $mqttuser;  } } else { $mqttuser = quotemeta($query{'mqttuser'});   }
+
+if ( !$query{'mqttpassw'} )   { if ( param('mqttpassw')  ) { $mqttpassw = quotemeta(param('mqttpassw'));         } 
+else { $mqttpassw = $mqttpassw;  } } else { $mqttpassw = quotemeta($query{'mqttpassw'});   }
+
 
 # ---------------------------------------
 # Figure out in which subfolder we are installed
@@ -101,12 +124,22 @@ $psubfolder =~ s/(.*)\/(.*)\/(.*)$/$2/g;
 
 
 # ---------------------------------------
+# Templateumschaltung
+# ---------------------------------------
+if (param('saveauswahl')) {
+	$conf = new Config::Simple("$home/config/plugins/$psubfolder/1wireconfig.cfg");
+	if ($udpmqtt ne 1) { $udpmqtt = 0 }
+	$conf->param('1wireconfig.UDPMQTT', unquotemeta($udpmqtt));
+	$conf->save();
+}
+# ---------------------------------------
 # Save the given Values to colfig files
 # ---------------------------------------
 if (param('savedata')) {
 	$conf = new Config::Simple("$home/config/plugins/$psubfolder/1wireconfig.cfg");
 
 	if ($enabled ne 1) { $enabled = 0 }
+	if (($loglv ne 10)&&($loglv ne 20)&&($loglv ne 30)){ $loglv = 10}
 
 	$username = encode_entities($username);
 	print STDERR "$username\n";
@@ -117,6 +150,10 @@ if (param('savedata')) {
 	$conf->param('1wireconfig.CRONZEIT', unquotemeta($cronzeit));
 	$conf->param('1wireconfig.OWPIN', unquotemeta($Owpin));
 	$conf->param('1wireconfig.LOGLV', unquotemeta($loglv));
+	$conf->param('1wireconfig.MQTTBROKER', unquotemeta($mqttbroker));
+	$conf->param('1wireconfig.MQTTTOPIK', unquotemeta($mqtttopik));
+	$conf->param('1wireconfig.MQTTUSER', unquotemeta($mqttuser));
+	$conf->param('1wireconfig.MQTTPASSW', unquotemeta($mqttpassw));
 	reboot_required("The changes of the settings of 1wire-onboard Plugin require a reboot.");
 	
 	$conf->save();
@@ -141,6 +178,10 @@ $enabled = encode_entities($conf->param('1wireconfig.ENABLED'));
 $cronzeit = encode_entities($conf->param('1wireconfig.CRONZEIT'));
 $Owpin = encode_entities($conf->param('1wireconfig.OWPIN'));
 $loglv = encode_entities($conf->param('1wireconfig.LOGLV'));
+$udpmqtt = encode_entities($conf->param('1wireconfig.UDPMQTT'));
+$mqtttopik = encode_entities($conf->param('1wireconfig.MQTTTOPIK'));
+$mqttbroker = encode_entities($conf->param('1wireconfig.MQTTBROKER'));
+$mqttuser = encode_entities($conf->param('1wireconfig.MQTTUSER'));
 
 # ---------------------------------------
 # Set Enabled / Disabled switch
@@ -149,6 +190,16 @@ if ($enabled eq "1") {
 	$Enabledlist = '<option value="0">NEIN</option><option value="1" selected>JA</option>\n';
 } else {
 	$Enabledlist = '<option value="0" selected>NEIN</option><option value="1">JA</option>\n';
+}
+
+# ---------------------------------------
+# Set UDP MQTT switch
+# ---------------------------------------
+if ($udpmqtt eq "0") {
+	$udpmqttlist = '<option value="0" selected>MQTT(STANDARD)</option><option value="1" >UDP</option>';
+} 
+if ($udpmqtt eq "1") {
+	$udpmqttlist = '<option value="0" >MQTT(STANDARD)</option><option value="1" selected>UDP</option>';
 }
 
 # ---------------------------------------

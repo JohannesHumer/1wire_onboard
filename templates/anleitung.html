@@ -40,13 +40,38 @@
 </tr>
 <tr>
 <td style="width: 50%;">
-Die Angeschlossenen Sensoren werden mit den Onboardmitteln des Raspberry's angefragt<br /> Dieses Plugin ist derzeit ausgelegt um Temperatursensoren der 28'er Baureihe abzufragen<br /> Die Abfrage-ergebnisse werden mit der Sersor-ID per UDP an den Miniserver gesendet.<br /> <br /> <br />
-<h4>Miniserver UDP-Port:</h4>
+Die Angeschlossenen Sensoren werden mit den Onboardmitteln des Raspberry's angefragt<br /> Dieses Plugin ist derzeit ausgelegt um Temperatursensoren der DS12(28'er) Baureihe abzufragen<br /> Die Abfrage-ergebnisse werden mit der Sersor-ID per UDP an den Miniserver gesendet.<br /> <br /> <br />
+Es können maximal 8 Sensoren abgefragt werden<br /><br />
+<h4>Hardware/Verkabelung:</h4>
+<br /> <br /> Ich habe die Sensoren in Parsitärer Weise an meinen Loxberry  angeschlossen.
+Kabellänge bis zum 1. Sensor 0,5m  Kabellänge bis zum letzten Sensor ca. 8m
+Die Sensoren werden anstandlos und ohne Fehler abgefragt. Wichtig ist der Pullupwiderstand um die Stabilität zu gewährleisten.
+<table width="100%">
+<tbody>
+<tr><td><p style="margin-top: 20px;">
+<a href="../../../plugins/1wire-onboard/parasitaerer betrieb.png"><img src="../../../plugins/1wire-onboard/parasitaerer betrieb.png" alt="parasit" width="32%" /></a>
+<a href="../../../plugins/1wire-onboard/Kurze laengen.png"><img src="../../../plugins/1wire-onboard/Kurze laengen.png" alt="parasit" width="32%" /></a>
+<a href="../../../plugins/1wire-onboard/Lange laengen.png"><img src="../../../plugins/1wire-onboard/Lange laengen.png" alt="parasit" width="32%" /></a></p></td></tr></tbody></table>
+<br><br>
+<h2>STANDARD-ÜBERMITTLUNGS-OPTION: MQTT</h2><br>
+<br>
+<h3>MQTT Einstellungen</h3><br>
+<h4>MQTT BROKER</h4>
+<br>Hier bitte die IP /die URL deines Brokers eintragen. Wenn du die MQTT Plugin auf dem Loxberry nutzt wird es "localhost" sein<br><br>
+<h4>MQTT TOPIK</h4>
+<br>Hier kann das Topik angepasst werden; wenn nichts angepasst wird beim Broker: 1wire-onboard/#   eintragen<br><br>
+<h4>MQTT User</h4>
+<br>Dein User am MQTT Broker<br><br>
+<h4>MQTT Passwort</h4>
+<br>Dein Passwort am MQTT Broker (Es wird nach einem erneuten Seitenladen nichtmehr angezeigt)<br><br>
+<br>
+<h2>UDP Einstellungen</h2><br>
+<h3>Miniserver UDP-Port:</h3>
 <br /> <br /> Hier bitte den Empfangsport des Miniservers eintragen<br /> <br /> <br />
 <h4>ONEWIRE-PIN</h4>
 <br /> <br /> Pin des Raspberry's an dem der Onewirebus angeschlossen ist<br />Getestet: PIN 4 ,5 ,6 ,17 ,22 ,27<br /> <br /> <font color=#FE2E2E>WICHTIG: es werden 2 Neustart's ben&ouml;tigt</font> damit die Pin&auml;nderung aktiviert wird!!!<br /> Es wird die GPIO Pinnummer verwendet!!<br /> <br /> Aktivieren und Speichern nicht vergessen</td>
 <td style="width: 50%;">
-<p style="margin-top: 60px;"><img style="display: block; margin-left: auto; margin-right: auto;" src="../../../plugins/1wire-onboard/pinout.png" alt="test" width="30%" /></p>
+<p style="margin-top: 60px;"><a href="../../../plugins/1wire-onboard/pinout.png"><img style="display: block; margin-left: auto; margin-right: auto;" src="../../../plugins/1wire-onboard/pinout.png" alt="test" width="30%" /></a></p>
 </td>
 </tr>
 </tbody>
